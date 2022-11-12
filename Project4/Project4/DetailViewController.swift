@@ -28,7 +28,7 @@ class DetailViewController: UIViewController, WKNavigationDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
+        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload)) //page refresh
         let forward = UIBarButtonItem(title: ">", style: .done, target: webView, action: #selector(webView.goForward)) // page to forward
         let back = UIBarButtonItem(title: "<", style: .done, target: webView, action: #selector(webView.goBack)) // page to back
 

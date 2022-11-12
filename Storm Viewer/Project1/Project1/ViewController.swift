@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UITableViewController {
     var pictures = [String] ()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +33,7 @@ class ViewController: UITableViewController {
         pictures.sort() // resim isimlerini küçükten büyüğe doğru sıralayarak göstermek için kullandım.
         print(pictures)
     }
+
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pictures.count // tableview size pictures.count return 
@@ -49,18 +50,18 @@ class ViewController: UITableViewController {
             vc.selectedImage = pictures[indexPath.row]
             navigationController?.pushViewController(vc, animated: true)
             
-                
+        }
     }
 
     @objc func sharedOnPeople() {
        
         //ltrtif
         
-        //let vc = UIActivityViewController(activityItems: [], applicationActivities: nil)
+        let vc = UIActivityViewController(activityItems: [], applicationActivities: nil)
         
-        //vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         
-        //present(vc, animated: true)
+        present(vc, animated: true)
     }
 
 }
