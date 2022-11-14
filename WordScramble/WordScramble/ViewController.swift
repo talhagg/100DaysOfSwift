@@ -15,7 +15,7 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForAnswer))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New!", style: .done, target: self, action: #selector(newWords))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Game!", style: .done, target: self, action: #selector(newWords))
         // I added it on the left to derive new words.
         
         if let startWordsURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
@@ -68,7 +68,7 @@ class ViewController: UITableViewController {
             if isPossible(word: lowerAnswer) {
                 if isOriginal(word: lowerAnswer) {
                     if isReal(word: lowerAnswer) {
-                        usedWords.insert(answer, at: 0)
+                        usedWords.insert(lowerAnswer, at: 0)
                         let indexPath = IndexPath(row: 0, section: 0)
                         tableView.insertRows(at: [indexPath], with: .automatic)
                                                                                             
@@ -90,7 +90,7 @@ class ViewController: UITableViewController {
     func isPossible(word: String) -> Bool {
         guard var tempWord = title?.lowercased() else {return false}
         
-        if tempWord == word {
+        if tempWord == word { // title isEqual answer
             print("equals")
             return false
         }
@@ -102,15 +102,6 @@ class ViewController: UITableViewController {
                     return false
                 }
             }
-        /*
-        for letter in word {
-            if let position = tempWord.firstIndex(of: letter) {
-                tempWord.remove(at: position)
-            } else {
-                return false
-            }
-        }
-         */
         
         return true
     }
@@ -124,7 +115,7 @@ class ViewController: UITableViewController {
         let range = NSRange(location: 0, length: word.utf16.count)
         let mispelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
         
-        if range.length < 3 {
+        if range.length < 3 { // answer count
             return false
         }
         
