@@ -9,11 +9,18 @@ import UIKit
 
 class ViewController: UITableViewController {
     var petitions = [Petition] ()
+    var filterData = [Petition] ()
+    var tester: Bool = true
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let urlString: String
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Credit!", style: .done, target: self, action: #selector(creditView))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchData))
         
         if navigationController?.tabBarItem.tag == 0 {
             urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
@@ -56,8 +63,15 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let petition = petitions[indexPath.row]
-        cell.textLabel?.text = petition.title
-        cell.detailTextLabel?.text = petition.body
+        //let filterDatas = filterData[indexPath.row]
+        if tester {
+            cell.textLabel?.text = petition.title
+            cell.detailTextLabel?.text = petition.body
+        } else {
+            cell.textLabel?.text = petition.title
+            cell.detailTextLabel?.text = petition.body
+        }
+        
         return cell
     }
     
@@ -66,6 +80,43 @@ class ViewController: UITableViewController {
         vc.detailItem = petitions[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @objc func creditView() {
+        
+        let vc = UIAlertController(title: "Wrong!", message: "This the data comes from the We The People API of the Whitehouse.", preferredStyle: .alert)
+        
+        vc.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        present(vc, animated: true)
+        
+    }
+    
+    @objc func searchData() {
+        let ac = UIAlertController(title: "Search", message: nil, preferredStyle: .alert)
+        
+        ac.addTextField()
+        
+        let submitAction = UIAlertAction(title: "Submit", style: .default) {
+                  [weak self, weak ac] action in
+                  guard let answer = ac?.textFields?[0].text else {return}
+                  self?.submit(answer: answer)
+              }
+              
+        ac.addAction(submitAction)
+              
+        present(ac, animated: true)
+    }
+    
+    func submit(answer: String) {
+        for i in filterData {
+            if i.title == answer {
+                tester = false
+            } else {
+                tester = true
+            }
+        }
+    }
+    
 
 }
 
