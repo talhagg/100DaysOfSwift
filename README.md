@@ -1,7 +1,7 @@
 # 100DaysOfSwift
 This repo shows my 100 day swift adventure.💻
 
-Current Challenge 28/100 - 12.11.2022
+Current Challenge 36/100 - 21.11.2022
 
 |Order|App Name  |
 |--|--|
