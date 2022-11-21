@@ -109,6 +109,7 @@ class ViewController: UITableViewController {
     
     func submit(answer: String) {
         for i in filterData {
+            //review
             if i.title == answer {
                 tester = false
             } else {
